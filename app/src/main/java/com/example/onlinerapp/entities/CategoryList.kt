@@ -1,5 +1,5 @@
 package com.example.onlinerapp.entities
 
-data class CharacterList(
+data class CategoryList(
     val schemas: List<Category>
 )
