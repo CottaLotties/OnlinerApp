@@ -6,5 +6,5 @@ class CategoryRemoteDataSource @Inject constructor(
         private val categoryService: CategoryService
 ): BaseDataSource(){
     suspend fun getCategories() = getResult { categoryService.getAllCategories() }
-    suspend fun getProducts() = getResult { categoryService.getAllProducts() }
+    suspend fun getProducts(key: String) = getResult { categoryService.getAllProducts(key) }
 }

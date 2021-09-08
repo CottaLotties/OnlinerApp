@@ -10,6 +10,6 @@ interface CategoryService {
     @GET("schemas?limit=30&page=1")
     suspend fun getAllCategories() : Response<CategoryList>
 
-    @GET("search/recievers?limit=30&page=1")
-    suspend fun getAllProducts() : Response<ProductList>
+    @GET("search/{key}?limit=30&page=1")
+    suspend fun getAllProducts(@Path("key") key: String) : Response<ProductList>
 }

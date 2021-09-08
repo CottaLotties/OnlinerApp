@@ -51,13 +51,17 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
     }
 
     private fun setupObservers() {
+
         viewModel.categories.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
+                    Log.d("HERE", "suc");
                     if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
                 }
-                Resource.Status.ERROR ->
+                Resource.Status.ERROR -> {
+                    Log.d("HERE", "err");
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }

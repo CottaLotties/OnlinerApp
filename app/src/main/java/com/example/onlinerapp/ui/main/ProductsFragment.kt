@@ -26,7 +26,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
     private lateinit var adapter: ProductsAdapter
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = ProductsFragment()
     }
 
     override fun onCreateView(
@@ -39,6 +39,8 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("HERE","The key: "+arguments?.getString("key"))
+        arguments?.getString("key")?.let { viewModel.start(it) }
         setupRecyclerView()
         setupObservers()
     }
@@ -50,15 +52,21 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
     }
 
     private fun setupObservers() {
+        Log.d("HERE","setup");
         viewModel.products.observe(viewLifecycleOwner, Observer {
+            Log.d("HERE",it.status.toString())
             when (it.status) {
+
                 Resource.Status.SUCCESS -> {
+                    Log.d("HERE","success");
+                    Toast.makeText(requireContext(), "SIZE: "+ it.data?.size, Toast.LENGTH_SHORT).show()
                     if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
+
                     Log.d("HERE","SUCCESS "+it.data?.size);
                 }
                 Resource.Status.ERROR -> {
+                    Log.d("HERE","error");
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    Log.d("HERE", "Foo");
                 }
             }
         })

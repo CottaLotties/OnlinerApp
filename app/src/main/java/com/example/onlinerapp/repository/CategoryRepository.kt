@@ -16,9 +16,9 @@ class CategoryRepository @Inject constructor(
             saveCallResult = { categoryLocalDataSource.insertAllCategories(it.schemas) }
     )
 
-    fun getProducts() = performGetOperation(
+    fun getProducts(key: String) = performGetOperation(
         databaseQuery = { categoryLocalDataSource.getAllProducts() },
-        networkCall = { categoryRemoteDataSource.getProducts() },
+        networkCall = { categoryRemoteDataSource.getProducts(key) },
         saveCallResult = { categoryLocalDataSource.insertAllProducts(it.products) }
     )
 
