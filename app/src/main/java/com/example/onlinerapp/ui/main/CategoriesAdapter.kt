@@ -50,6 +50,6 @@ class CategoryViewHolder(private val itemBinding: CategoryItemBinding, private v
     }
 
     override fun onClick(v: View?) {
-        //listener.onClickedCategory(category.key)
+        listener.onClickedCategory(category.key)
     }
 }

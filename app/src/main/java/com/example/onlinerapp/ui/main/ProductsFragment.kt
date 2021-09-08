@@ -1,5 +1,6 @@
 package com.example.onlinerapp.ui.main
 
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,67 +8,59 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import com.example.onlinerapp.databinding.MainFragmentBinding
-import dagger.hilt.android.AndroidEntryPoint
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onlinerapp.R
 import com.example.onlinerapp.Resource
 import com.example.onlinerapp.autoCleared
-import androidx.navigation.fragment.findNavController
+import com.example.onlinerapp.databinding.MainFragmentBinding
+import com.example.onlinerapp.databinding.ProductsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
+class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
 
-    private var binding: MainFragmentBinding by autoCleared()
-    private val viewModel: MainViewModel by viewModels()
-    private lateinit var adapter: CategoriesAdapter
+    private var binding: ProductsFragmentBinding by autoCleared()
+    private val viewModel: ProductsViewModel by viewModels()
+    private lateinit var adapter: ProductsAdapter
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
-        binding = MainFragmentBinding.inflate(inflater, container, false)
+        binding = ProductsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // setup recycleView and observer
         setupRecyclerView()
         setupObservers()
     }
 
     private fun setupRecyclerView() {
-        adapter = CategoriesAdapter(this)
-        binding.categoriesList.layoutManager = LinearLayoutManager(requireContext())
-        binding.categoriesList.adapter = adapter
+        adapter = ProductsAdapter(this)
+        binding.productsList.layoutManager = LinearLayoutManager(requireContext())
+        binding.productsList.adapter = adapter
     }
 
     private fun setupObservers() {
-        viewModel.categories.observe(viewLifecycleOwner, Observer {
+        viewModel.products.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
+                    Log.d("HERE","SUCCESS "+it.data?.size);
                 }
-                Resource.Status.ERROR ->
+                Resource.Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Log.d("HERE", "Foo");
+                }
             }
         })
     }
-
-    override fun onClickedCategory(categoryKey: String) {
-        Log.d("HERE", categoryKey);
-        findNavController().navigate(
-                R.id.action_mainFragment_to_productsFragment,
-                bundleOf("key" to categoryKey)
-        )
-    }
-
 }
