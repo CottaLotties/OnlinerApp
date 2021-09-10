@@ -1,12 +1,10 @@
 package com.example.onlinerapp.ui.main
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinerapp.databinding.CategoryItemBinding
-import com.example.onlinerapp.entities.Category
 import com.example.onlinerapp.entities.Product
 
 class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.Adapter<ProductViewHolder>() {
@@ -17,7 +15,6 @@ class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.
     private val items = ArrayList<Product>()
 
     fun setItems(items: ArrayList<Product>) {
-        Log.d("HERE", items.size.toString())
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()

@@ -2,12 +2,12 @@ package com.example.onlinerapp.repository
 
 import com.example.onlinerapp.database.CategoryDao
 import com.example.onlinerapp.performGetOperation
-import com.example.onlinerapp.remote.CategoryRemoteDataSource
+import com.example.onlinerapp.remote.RemoteDataSource
 import javax.inject.Inject
 
 // a repository class for the main (category list) screen
-class CategoryRepository @Inject constructor(
-        private val categoryRemoteDataSource: CategoryRemoteDataSource,
+class Repository @Inject constructor(
+        private val categoryRemoteDataSource: RemoteDataSource,
         private val categoryLocalDataSource: CategoryDao
 ){
     fun getCategories() = performGetOperation(
@@ -17,7 +17,7 @@ class CategoryRepository @Inject constructor(
     )
 
     fun getProducts(key: String) = performGetOperation(
-        databaseQuery = { categoryLocalDataSource.getAllProducts() },
+        databaseQuery = { categoryLocalDataSource.getProducts("%"+key+"%") },
         networkCall = { categoryRemoteDataSource.getProducts(key) },
         saveCallResult = { categoryLocalDataSource.insertAllProducts(it.products) }
     )

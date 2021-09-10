@@ -1,7 +1,6 @@
 package com.example.onlinerapp.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.core.os.bundleOf
 import com.example.onlinerapp.databinding.MainFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onlinerapp.R
 import com.example.onlinerapp.Resource
@@ -25,9 +23,9 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var adapter: CategoriesAdapter
 
-    companion object {
+    /*companion object {
         fun newInstance() = MainFragment()
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,14 +50,12 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
 
     private fun setupObservers() {
 
-        viewModel.categories.observe(viewLifecycleOwner, Observer {
+        viewModel.categories.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
-                    Log.d("HERE", "suc");
                     if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
                 }
                 Resource.Status.ERROR -> {
-                    Log.d("HERE", "err");
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -67,11 +63,9 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
     }
 
     override fun onClickedCategory(categoryKey: String) {
-        Log.d("HERE", categoryKey);
         findNavController().navigate(
                 R.id.action_mainFragment_to_productsFragment,
-                bundleOf("key" to categoryKey)
+                bundleOf("key" to categoryKey) // saving categoryKey
         )
     }
-
 }

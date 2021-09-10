@@ -10,5 +10,6 @@ data class Product(
         val key: String,
         val name: String,
         val fullName: String?,
-        val description: String
+        val description: String,
+        val html_url: String
 )

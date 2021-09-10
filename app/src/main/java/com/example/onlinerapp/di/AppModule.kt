@@ -3,9 +3,9 @@ package com.example.onlinerapp.di
 import android.content.Context
 import com.example.onlinerapp.database.AppDatabase
 import com.example.onlinerapp.database.CategoryDao
-import com.example.onlinerapp.remote.CategoryRemoteDataSource
-import com.example.onlinerapp.remote.CategoryService
-import com.example.onlinerapp.repository.CategoryRepository
+import com.example.onlinerapp.remote.RemoteDataSource
+import com.example.onlinerapp.remote.RemoteService
+import com.example.onlinerapp.repository.Repository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -34,11 +34,11 @@ class AppModule {
 
     @Provides
     fun provideCategoryService(retrofit: Retrofit):
-            CategoryService = retrofit.create(CategoryService::class.java)
+            RemoteService = retrofit.create(RemoteService::class.java)
 
     @Singleton
     @Provides
-    fun provideCategoryRemoteDataSource(categoryService: CategoryService) = CategoryRemoteDataSource(categoryService)
+    fun provideCategoryRemoteDataSource(categoryService: RemoteService) = RemoteDataSource(categoryService)
 
     @Singleton
     @Provides
@@ -50,7 +50,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: CategoryRemoteDataSource,
+    fun provideRepository(remoteDataSource: RemoteDataSource,
                           localDataSource: CategoryDao) =
-        CategoryRepository(remoteDataSource, localDataSource)
+        Repository(remoteDataSource, localDataSource)
 }

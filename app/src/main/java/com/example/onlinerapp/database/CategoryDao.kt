@@ -16,8 +16,9 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCategories(categories: List<Category>)
 
-    @Query("SELECT * FROM products")
-    fun getAllProducts() : LiveData<List<Product>>
+    // a select query to get all the products of the same category; html_url contains the category key
+    @Query("SELECT * FROM products WHERE html_url LIKE :key")
+    fun getProducts(key: String) : LiveData<List<Product>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllProducts(products: List<Product>)
