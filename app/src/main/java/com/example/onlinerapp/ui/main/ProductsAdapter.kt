@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onlinerapp.databinding.CategoryItemBinding
+import com.example.onlinerapp.databinding.ProductItemBinding
 import com.example.onlinerapp.entities.Product
 
 class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.Adapter<ProductViewHolder>() {
@@ -21,7 +21,7 @@ class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding: CategoryItemBinding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ProductItemBinding = ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductViewHolder(binding, listener)
     }
 
@@ -32,7 +32,7 @@ class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) = holder.bind(items[position])
 }
 
-class ProductViewHolder(private val itemBinding: CategoryItemBinding, private val listener: ProductsAdapter.ProductItemListener) : RecyclerView.ViewHolder(itemBinding.root),
+class ProductViewHolder(private val itemBinding: ProductItemBinding, private val listener: ProductsAdapter.ProductItemListener) : RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 
     private lateinit var product: Product
@@ -43,7 +43,8 @@ class ProductViewHolder(private val itemBinding: CategoryItemBinding, private va
 
     fun bind(item: Product) {
         this.product = item
-        itemBinding.categoryName.text = item.name
+        itemBinding.productName.text = item.name
+        itemBinding.productDescription.text = item.description
     }
 
     override fun onClick(v: View?) {
