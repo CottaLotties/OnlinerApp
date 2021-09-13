@@ -22,4 +22,5 @@ class Repository @Inject constructor(
         saveCallResult = { categoryLocalDataSource.insertAllProducts(it.products) }
     )
 
+    fun getProduct(key: String) = categoryLocalDataSource.getProduct(key)
 }

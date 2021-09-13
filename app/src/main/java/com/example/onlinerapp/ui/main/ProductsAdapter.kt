@@ -10,6 +10,7 @@ import com.example.onlinerapp.entities.Product
 class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.Adapter<ProductViewHolder>() {
 
     interface ProductItemListener {
+            fun onClickedProduct(productKey: String)
     }
 
     private val items = ArrayList<Product>()
@@ -48,5 +49,6 @@ class ProductViewHolder(private val itemBinding: ProductItemBinding, private val
     }
 
     override fun onClick(v: View?) {
+        listener.onClickedProduct(product.key)
     }
 }

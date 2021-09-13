@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onlinerapp.R
 import com.example.onlinerapp.Resource
 import com.example.onlinerapp.autoCleared
 import com.example.onlinerapp.databinding.ProductsFragmentBinding
@@ -48,7 +51,6 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
     private fun setupObservers() {
         viewModel.products.observe(viewLifecycleOwner, {
             when (it.status) {
-
                 Resource.Status.SUCCESS -> {
                     if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
                 }
@@ -57,5 +59,12 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
                 }
             }
         })
+    }
+
+    override fun onClickedProduct(productKey: String) {
+        findNavController().navigate(
+            R.id.action_productsFragment_to_productDetailFragment,
+            bundleOf("key" to productKey)
+        )
     }
 }

@@ -22,4 +22,7 @@ interface CategoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllProducts(products: List<Product>)
+
+    @Query("SELECT * FROM products WHERE [key] = :key")
+    fun getProduct(key: String): LiveData<Product>
 }

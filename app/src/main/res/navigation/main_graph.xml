@@ -14,5 +14,13 @@
     <fragment
         android:id="@+id/productsFragment"
         android:name="com.example.onlinerapp.ui.main.ProductsFragment"
-        android:label="ProductsFragment" />
+        android:label="ProductsFragment" >
+        <action
+            android:id="@+id/action_productsFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.onlinerapp.ui.main.ProductDetailFragment"
+        android:label="ProductDetailFragment" />
 </navigation>
