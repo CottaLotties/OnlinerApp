@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.onlinerapp.ui.main.MainFragment"
+        android:name="com.example.onlinerapp.ui.main.categories.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_productsFragment"
@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.example.onlinerapp.ui.main.ProductsFragment"
+        android:name="com.example.onlinerapp.ui.main.products.ProductsFragment"
         android:label="ProductsFragment" >
         <action
             android:id="@+id/action_productsFragment_to_productDetailFragment"
@@ -21,6 +21,6 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.onlinerapp.ui.main.ProductDetailFragment"
+        android:name="com.example.onlinerapp.ui.main.productdetail.ProductDetailFragment"
         android:label="ProductDetailFragment" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.onlinerapp.ui.main
+package com.example.onlinerapp.ui.main.productdetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

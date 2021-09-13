@@ -1,4 +1,4 @@
-package com.example.onlinerapp.ui.main
+package com.example.onlinerapp.ui.main.products
 
 import android.view.LayoutInflater
 import android.view.View
