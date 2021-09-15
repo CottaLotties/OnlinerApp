@@ -1,5 +1,6 @@
 package com.example.onlinerapp.entities
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,5 +9,7 @@ data class Category(
     @PrimaryKey
     val id: Int,
     val key: String,
-    val name: String
+    val name: String,
+    @Embedded
+    val prices : Prices?
 )

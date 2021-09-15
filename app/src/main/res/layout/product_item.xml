@@ -1,30 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/product_item_margin"
+    android:layout_marginBottom="@dimen/list_view_item_padding"
     android:background="@drawable/product_item_background"
-    android:layout_margin="@dimen/product_item_margin"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/productName"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/list_view_item_padding"
-        android:paddingEnd="@dimen/list_view_item_padding"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+    <ImageView
+        android:id="@+id/productImage"
+        android:contentDescription="@string/product_image_description"
+        android:layout_width="@dimen/product_image_dimen"
+        android:layout_height="@dimen/product_image_dimen"
+        android:layout_margin="@dimen/list_view_item_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/productName"
+            android:textStyle="bold"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/productName"
+            app:layout_constraintTop_toTopOf="@id/productName"
+            app:layout_constraintRight_toLeftOf="@id/productImage"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/list_view_item_padding"
+            android:paddingEnd="@dimen/list_view_item_padding" />
 
     <TextView
         android:id="@+id/productDescription"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:paddingTop="@dimen/list_view_item_padding"
+        android:paddingBottom="@dimen/list_view_item_padding"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:gravity="center_vertical"
+        app:layout_constraintWidth_percent="0.8"
         android:paddingStart="@dimen/list_view_item_padding"
         android:paddingEnd="@dimen/list_view_item_padding"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall" />
-</LinearLayout>
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textColor="@color/gray"
+        app:layout_constraintRight_toLeftOf="@id/productImage"
+        android:lines="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+     <TextView
+         android:id="@+id/productPrice"
+         android:textStyle="bold"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:textAppearance="?android:attr/textAppearanceListItemSmall"
+         android:gravity="center_vertical"
+         android:paddingStart="@dimen/list_view_item_padding"
+         android:paddingEnd="@dimen/list_view_item_padding"
+         app:layout_constraintRight_toLeftOf="@id/productImage"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/productDescription"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
