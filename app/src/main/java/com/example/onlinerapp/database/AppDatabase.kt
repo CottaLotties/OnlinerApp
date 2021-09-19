@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.onlinerapp.entities.Cart
 import com.example.onlinerapp.entities.Category
 import com.example.onlinerapp.entities.Product
 
-@Database(entities = [Category::class, Product::class], version=1, exportSchema = false)
+@Database(entities = [Category::class, Product::class, Cart::class], version=1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract  fun categoryDao(): CategoryDao
 

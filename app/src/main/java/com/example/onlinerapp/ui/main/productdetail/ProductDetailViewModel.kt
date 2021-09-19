@@ -22,4 +22,8 @@ class ProductDetailViewModel @ViewModelInject constructor(
     fun start(key: String) {
         _key.value = key
     }
+
+    suspend fun addToCart(product: Product){
+        repository.addProductToCart(product)
+    }
 }

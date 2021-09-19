@@ -1,6 +1,7 @@
 package com.example.onlinerapp.repository
 
 import com.example.onlinerapp.database.CategoryDao
+import com.example.onlinerapp.entities.Product
 import com.example.onlinerapp.performGetOperation
 import com.example.onlinerapp.remote.RemoteDataSource
 import javax.inject.Inject
@@ -17,10 +18,14 @@ class Repository @Inject constructor(
     )
 
     fun getProducts(key: String) = performGetOperation(
-        databaseQuery = { categoryLocalDataSource.getProducts("%"+key+"%") },
+        databaseQuery = { categoryLocalDataSource.getProducts("%$key%") },
         networkCall = { categoryRemoteDataSource.getProducts(key) },
         saveCallResult = { categoryLocalDataSource.insertAllProducts(it.products) }
     )
 
     fun getProduct(key: String) = categoryLocalDataSource.getProduct(key)
+
+    suspend fun addProductToCart(product: Product) = categoryLocalDataSource.addToCart(product)
+
+    fun getAllFromCart() = categoryLocalDataSource.getAllSelectedProducts()
 }

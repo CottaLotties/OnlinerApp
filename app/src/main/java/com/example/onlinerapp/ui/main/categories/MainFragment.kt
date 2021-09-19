@@ -23,10 +23,6 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var adapter: CategoriesAdapter
 
-    /*companion object {
-        fun newInstance() = MainFragment()
-    }*/
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

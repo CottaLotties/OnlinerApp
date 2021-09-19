@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.onlinerapp.entities.Cart
 import com.example.onlinerapp.entities.Category
 import com.example.onlinerapp.entities.Product
 
@@ -25,4 +26,10 @@ interface CategoryDao {
 
     @Query("SELECT * FROM products WHERE [key] = :key")
     fun getProduct(key: String): LiveData<Product>
+
+    @Query("SELECT * FROM cart")
+    fun getAllSelectedProducts() : LiveData<List<Product>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE, entity = Cart::class)
+    suspend fun addToCart(product: Product)
 }

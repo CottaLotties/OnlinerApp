@@ -67,12 +67,12 @@
             android:layout_marginRight="@dimen/product_image_margin_small" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/list_view_item_padding"
         app:backgroundTint="@color/orange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:contentDescription="@string/add_to_cart_button_text" />
+        app:srcCompat="@android:drawable/ic_input_add" />
     </androidx.constraintlayout.widget.ConstraintLayout>
