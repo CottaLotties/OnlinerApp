@@ -13,6 +13,7 @@ class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.
 
     interface ProductItemListener {
             fun onClickedProduct(productKey: String)
+            fun onLongClickedProduct(link: String)
     }
 
     private val items = ArrayList<Product>()
@@ -36,12 +37,13 @@ class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.
 }
 
 class ProductViewHolder(private val itemBinding: ProductItemBinding, private val listener: ProductsAdapter.ProductItemListener) : RecyclerView.ViewHolder(itemBinding.root),
-        View.OnClickListener {
+        View.OnClickListener, View.OnLongClickListener {
 
     private lateinit var product: Product
 
     init {
         itemBinding.root.setOnClickListener(this)
+        itemBinding.root.setOnLongClickListener(this)
     }
 
     @SuppressLint("SetTextI18n")
@@ -54,11 +56,16 @@ class ProductViewHolder(private val itemBinding: ProductItemBinding, private val
                 "От " + item.prices.price_min.amount + " " + item.prices.price_min.currency
         } else itemBinding.productPrice.visibility = View.GONE
         Glide.with(itemBinding.root)
-            .load("https:"+product.images.header)
+            .load("https:" + product.images.header)
             .into(itemBinding.productImage)
     }
 
     override fun onClick(v: View?) {
         listener.onClickedProduct(product.key)
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        listener.onLongClickedProduct(product.html_url)
+        return true
     }
 }

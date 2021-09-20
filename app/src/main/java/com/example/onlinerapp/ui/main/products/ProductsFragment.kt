@@ -1,5 +1,7 @@
 package com.example.onlinerapp.ui.main.products
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -66,5 +68,11 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
             R.id.action_productsFragment_to_productDetailFragment,
             bundleOf("key" to productKey)
         )
+    }
+
+    override fun onLongClickedProduct(link: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW)
+        browserIntent.data = Uri.parse(link)
+        activity?.startActivity(browserIntent)
     }
 }
