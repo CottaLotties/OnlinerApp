@@ -1,10 +1,7 @@
 package com.example.onlinerapp.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.onlinerapp.entities.Cart
 import com.example.onlinerapp.entities.Category
 import com.example.onlinerapp.entities.Product
@@ -32,4 +29,7 @@ interface CategoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = Cart::class)
     suspend fun addToCart(product: Product)
+
+    @Query("DELETE FROM cart WHERE id = :id")
+    suspend fun deleteById(id: Int)
 }

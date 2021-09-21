@@ -28,4 +28,6 @@ class Repository @Inject constructor(
     suspend fun addProductToCart(product: Product) = categoryLocalDataSource.addToCart(product)
 
     fun getAllFromCart() = categoryLocalDataSource.getAllSelectedProducts()
+
+    suspend fun deleteById(id: Int) = categoryLocalDataSource.deleteById(id)
 }

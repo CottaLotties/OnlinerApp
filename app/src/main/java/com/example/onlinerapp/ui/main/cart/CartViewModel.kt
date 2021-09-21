@@ -5,7 +5,13 @@ import androidx.lifecycle.ViewModel
 import com.example.onlinerapp.repository.Repository
 
 class CartViewModel @ViewModelInject constructor(
-        repository: Repository
+        private val repository: Repository
 ) : ViewModel() {
+
     val selectedProducts = repository.getAllFromCart()
+
+    suspend fun deleteById(id: Int){
+        repository.deleteById(id)
+    }
 }
+

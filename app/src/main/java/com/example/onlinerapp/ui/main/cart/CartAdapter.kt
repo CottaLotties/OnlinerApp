@@ -30,6 +30,10 @@ class CartAdapter(private val listener: CartItemListener) : RecyclerView.Adapter
         return items.size
     }
 
+    fun getItem(pos: Int): Product{
+        return items.get(pos)
+    }
+
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) = holder.bind(items[position])
 }
 
