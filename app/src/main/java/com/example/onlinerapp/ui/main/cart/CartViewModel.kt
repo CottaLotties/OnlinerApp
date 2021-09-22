@@ -13,5 +13,9 @@ class CartViewModel @ViewModelInject constructor(
     suspend fun deleteById(id: Int){
         repository.deleteById(id)
     }
+
+    suspend fun removeAllFromCart(){
+        repository.removeAllFromCart()
+    }
 }
 

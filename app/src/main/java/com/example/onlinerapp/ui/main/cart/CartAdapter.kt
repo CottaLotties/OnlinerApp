@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.onlinerapp.databinding.ProductItemBinding
 import com.example.onlinerapp.entities.Product
 
-class CartAdapter(private val listener: CartItemListener) : RecyclerView.Adapter<CartViewHolder>() {
+class CartAdapter : RecyclerView.Adapter<CartViewHolder>() {
 
     interface CartItemListener
 
@@ -23,7 +23,7 @@ class CartAdapter(private val listener: CartItemListener) : RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val binding: ProductItemBinding = ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CartViewHolder(binding, listener)
+        return CartViewHolder(binding)
     }
 
     override fun getItemCount(): Int{
@@ -31,13 +31,13 @@ class CartAdapter(private val listener: CartItemListener) : RecyclerView.Adapter
     }
 
     fun getItem(pos: Int): Product{
-        return items.get(pos)
+        return items[pos]
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) = holder.bind(items[position])
 }
 
-class CartViewHolder(private val itemBinding: ProductItemBinding, private val listener: CartAdapter.CartItemListener) : RecyclerView.ViewHolder(itemBinding.root),
+class CartViewHolder(private val itemBinding: ProductItemBinding) : RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 
     private lateinit var product: Product

@@ -3,4 +3,5 @@
     <string name="product_image_description">ProductImg</string>
     <string name="add_to_cart_button_text">TODO</string>
     <string name="cart_menu_item">Cart</string>
+    <string name="remove_all_menu_item">Remove all</string>
 </resources>
