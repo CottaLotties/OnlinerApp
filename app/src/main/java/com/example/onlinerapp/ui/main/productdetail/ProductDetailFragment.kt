@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.product_detail_fragment.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
 
@@ -53,7 +52,7 @@ class ProductDetailFragment : Fragment() {
     private fun addProductToCart() = runBlocking {
         launch{
             viewModel.addToCart(product)
-        }
+    }
     }
 
     @SuppressLint("SetTextI18n")

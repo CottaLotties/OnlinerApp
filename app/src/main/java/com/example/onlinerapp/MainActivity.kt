@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.*
 import com.example.onlinerapp.databinding.MainActivityBinding
+import com.example.onlinerapp.notifications.Notifier
 import com.example.onlinerapp.ui.main.cart.CartFragment
 import dagger.hilt.android.AndroidEntryPoint
-
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var requestBuilder: OneTimeWorkRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: MainActivityBinding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        scheduleNotification() // check if we need to send notifications
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -47,5 +52,21 @@ class MainActivity : AppCompatActivity() {
             currentFragment.removeAllFromCart()
         }
         return true
+    }
+
+    private fun scheduleNotification() {
+        val workManager = WorkManager.getInstance(this)
+        requestBuilder = OneTimeWorkRequest.Builder(Notifier::class.java).build()
+        workManager.getWorkInfoByIdLiveData(requestBuilder.id).observe(this, { workerStatus ->
+            if (workerStatus != null && workerStatus.state.isFinished) {
+                startNotifyWorker()
+            }
+        })
+        workManager.beginUniqueWork("NOTIFY", ExistingWorkPolicy.REPLACE, requestBuilder).enqueue()
+    }
+
+    private fun startNotifyWorker() {
+        val requestBuilder = PeriodicWorkRequest.Builder(Notifier::class.java, 30, TimeUnit.MINUTES)
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork("NOTIFY", ExistingPeriodicWorkPolicy.REPLACE, requestBuilder.build())
     }
 }
