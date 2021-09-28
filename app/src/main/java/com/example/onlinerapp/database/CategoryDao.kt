@@ -38,4 +38,7 @@ interface CategoryDao {
 
     @Query("DELETE FROM cart")
     suspend fun removeAllFromCart()
+
+    @Query("SELECT COUNT(id) FROM cart")
+    suspend fun getCartSize(): Int
 }

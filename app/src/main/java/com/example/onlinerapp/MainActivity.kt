@@ -1,5 +1,6 @@
 package com.example.onlinerapp
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,21 +8,42 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.work.*
 import com.example.onlinerapp.databinding.MainActivityBinding
 import com.example.onlinerapp.notifications.Notifier
+import com.example.onlinerapp.repository.Repository
 import com.example.onlinerapp.ui.main.cart.CartFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
+    @Inject
+    lateinit var repository: Repository
     private lateinit var requestBuilder: OneTimeWorkRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: MainActivityBinding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        scheduleNotification() // check if we need to send notifications
+
+        // checking if we should send notifications
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        val tag = sharedPref.getString("NOTIFICATIONS", "OFF")
+        if ((getCartSize()>0)&&(tag.equals("OFF"))) scheduleNotification()
+
+        val intent = intent
+        val action = intent.getStringExtra("FRAGMENT")
+        if (action != null) {
+            if (action == "CART") {
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, CartFragment.newInstance(), "CART")
+                        .addToBackStack(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.javaClass?.name)
+                        .commit()
+            }
+        }
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
@@ -68,5 +90,14 @@ class MainActivity : AppCompatActivity() {
     private fun startNotifyWorker() {
         val requestBuilder = PeriodicWorkRequest.Builder(Notifier::class.java, 30, TimeUnit.MINUTES)
         WorkManager.getInstance(this).enqueueUniquePeriodicWork("NOTIFY", ExistingPeriodicWorkPolicy.REPLACE, requestBuilder.build())
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString("NOTIFICATIONS", "ON")
+            apply()
+        }
+    }
+
+    private fun getCartSize(): Int = runBlocking {
+        repository.getCartSize()
     }
 }

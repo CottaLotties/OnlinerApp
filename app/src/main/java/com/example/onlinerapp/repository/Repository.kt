@@ -32,4 +32,6 @@ class Repository @Inject constructor(
     suspend fun deleteById(id: Int) = categoryLocalDataSource.deleteById(id)
 
     suspend fun removeAllFromCart() = categoryLocalDataSource.removeAllFromCart()
+
+    suspend fun getCartSize() = categoryLocalDataSource.getCartSize()
 }
