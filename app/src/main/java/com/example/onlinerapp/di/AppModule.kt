@@ -1,8 +1,10 @@
 package com.example.onlinerapp.di
 
 import android.content.Context
+import androidx.work.OneTimeWorkRequest
 import com.example.onlinerapp.database.AppDatabase
 import com.example.onlinerapp.database.CategoryDao
+import com.example.onlinerapp.notifications.NotificationManager
 import com.example.onlinerapp.remote.RemoteDataSource
 import com.example.onlinerapp.remote.RemoteService
 import com.example.onlinerapp.repository.Repository
@@ -53,4 +55,9 @@ class AppModule {
     fun provideRepository(remoteDataSource: RemoteDataSource,
                           localDataSource: CategoryDao) =
         Repository(remoteDataSource, localDataSource)
+
+    @Singleton
+    @Provides
+    fun provideNotificationManager(repository: Repository) =
+            NotificationManager(repository)
 }
