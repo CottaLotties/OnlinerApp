@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinerapp.SwipeToDeleteCallback
 import com.example.onlinerapp.autoCleared
 import com.example.onlinerapp.databinding.CartFragmentBinding
-import com.example.onlinerapp.entities.Product
+import com.example.onlinerapp.entities.product.Product
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

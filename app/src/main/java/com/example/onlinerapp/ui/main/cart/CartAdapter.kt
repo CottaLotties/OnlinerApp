@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.onlinerapp.databinding.ProductItemBinding
-import com.example.onlinerapp.entities.Product
+import com.example.onlinerapp.entities.product.Product
 
 class CartAdapter : RecyclerView.Adapter<CartViewHolder>() {
 
@@ -30,7 +30,7 @@ class CartAdapter : RecyclerView.Adapter<CartViewHolder>() {
         return items.size
     }
 
-    fun getItem(pos: Int): Product{
+    fun getItem(pos: Int): Product {
         return items[pos]
     }
 

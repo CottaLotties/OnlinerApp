@@ -1,18 +1,16 @@
 package com.example.onlinerapp.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.onlinerapp.entities.Cart
-import com.example.onlinerapp.entities.Category
-import com.example.onlinerapp.entities.Product
+import com.example.onlinerapp.entities.cart.Cart
+import com.example.onlinerapp.entities.categories.Category
+import com.example.onlinerapp.entities.product.Product
 
 @Database(entities = [Category::class, Product::class, Cart::class], version=1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract  fun categoryDao(): CategoryDao
 
-    companion object {
+    /*companion object {
         @Volatile private var dbInstance: AppDatabase? = null
 
         fun getDB(context: Context):AppDatabase =
@@ -22,5 +20,5 @@ abstract class AppDatabase : RoomDatabase() {
                 Room.databaseBuilder(appContext, AppDatabase::class.java, "onlinerAppDB")
                         .fallbackToDestructiveMigration()
                         .build()
-    }
+    }*/
 }

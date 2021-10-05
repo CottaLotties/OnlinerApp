@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinerapp.databinding.CategoryItemBinding
-import com.example.onlinerapp.entities.Category
+import com.example.onlinerapp.entities.categories.Category
 
 class CategoriesAdapter(private val listener: CategoryItemListener) : RecyclerView.Adapter<CategoryViewHolder>() {
 

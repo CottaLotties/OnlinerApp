@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.onlinerapp.autoCleared
 import com.example.onlinerapp.databinding.ProductDetailFragmentBinding
-import com.example.onlinerapp.entities.Product
+import com.example.onlinerapp.entities.product.Product
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.product_detail_fragment.*
 import kotlinx.coroutines.launch

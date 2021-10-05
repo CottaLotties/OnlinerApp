@@ -1,27 +1,23 @@
 package com.example.onlinerapp.di
 
-import android.content.Context
-import androidx.work.OneTimeWorkRequest
-import com.example.onlinerapp.database.AppDatabase
 import com.example.onlinerapp.database.CategoryDao
 import com.example.onlinerapp.notifications.NotificationManager
 import com.example.onlinerapp.remote.RemoteDataSource
-import com.example.onlinerapp.remote.RemoteService
+import com.example.onlinerapp.remote.OnlinerAPI
 import com.example.onlinerapp.repository.Repository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 // DI class; a module for providing all the dependencies for our application
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 class AppModule {
 
     @Singleton
@@ -36,19 +32,19 @@ class AppModule {
 
     @Provides
     fun provideCategoryService(retrofit: Retrofit):
-            RemoteService = retrofit.create(RemoteService::class.java)
+            OnlinerAPI = retrofit.create(OnlinerAPI::class.java)
 
     @Singleton
     @Provides
-    fun provideCategoryRemoteDataSource(categoryService: RemoteService) = RemoteDataSource(categoryService)
+    fun provideCategoryRemoteDataSource(categoryService: OnlinerAPI) = RemoteDataSource(categoryService)
 
-    @Singleton
-    @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context) = AppDatabase.getDB(appContext)
+    //@Singleton
+    //@Provides
+    //fun provideDatabase(@ApplicationContext appContext: Context) = AppDatabase.getDB(appContext)
 
-    @Singleton
-    @Provides
-    fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
+    //@Singleton
+    //@Provides
+    //fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
 
     @Singleton
     @Provides

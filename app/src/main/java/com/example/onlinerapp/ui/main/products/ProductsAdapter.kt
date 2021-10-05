@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.onlinerapp.databinding.ProductItemBinding
-import com.example.onlinerapp.entities.Product
+import com.example.onlinerapp.entities.product.Product
 
 class ProductsAdapter(private val listener: ProductItemListener) : RecyclerView.Adapter<ProductViewHolder>() {
 

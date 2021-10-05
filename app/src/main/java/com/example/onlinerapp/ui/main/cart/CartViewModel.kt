@@ -1,10 +1,12 @@
 package com.example.onlinerapp.ui.main.cart
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.example.onlinerapp.repository.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CartViewModel @ViewModelInject constructor(
+@HiltViewModel
+class CartViewModel @Inject constructor(
         private val repository: Repository
 ) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.example.onlinerapp.entities
+package com.example.onlinerapp.entities.product
 
 import androidx.room.Embedded
 
