@@ -13,8 +13,6 @@ import com.example.onlinerapp.databinding.ProductDetailFragmentBinding
 import com.example.onlinerapp.entities.product.Product
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.product_detail_fragment.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
@@ -39,7 +37,7 @@ class ProductDetailFragment : Fragment() {
 
         // Adding onClickListener for the addProductToCart button
         addToCart.setOnClickListener {
-            addProductToCart()
+            viewModel.addToCart(product)
         }
     }
 
@@ -48,12 +46,6 @@ class ProductDetailFragment : Fragment() {
             product = it
             bindProduct(it)
         })
-    }
-
-    private fun addProductToCart() = runBlocking {
-        launch{
-            viewModel.addToCart(product)
-    }
     }
 
     private fun bindProduct(product: Product) {

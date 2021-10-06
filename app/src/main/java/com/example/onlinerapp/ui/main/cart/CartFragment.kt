@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinerapp.SwipeToDeleteCallback
 import com.example.onlinerapp.autoCleared
 import com.example.onlinerapp.databinding.CartFragmentBinding
-import com.example.onlinerapp.entities.product.Product
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class CartFragment : Fragment(), CartAdapter.CartItemListener {
@@ -42,11 +39,9 @@ class CartFragment : Fragment(), CartAdapter.CartItemListener {
         setupObservers()
     }
 
-    fun removeAllFromCart() = runBlocking {
-        launch{
+    fun removeAllFromCart() {
             viewModel.removeAllFromCart()
             NotificationManagerCompat.from(requireContext()).cancelAll()
-        }
     }
 
     private fun setupRecyclerView() {
@@ -57,18 +52,12 @@ class CartFragment : Fragment(), CartAdapter.CartItemListener {
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val pos = viewHolder.adapterPosition
-                deleteFromCart(adapter.getItem(pos))
+                viewModel.deleteById(adapter.getItem(pos).id)
             }
         }
 
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(binding.cartProductsList)
-    }
-
-    private fun deleteFromCart(product: Product) = runBlocking {
-        launch{
-            viewModel.deleteById(product.id)
-        }
     }
 
     private fun setupObservers() {
