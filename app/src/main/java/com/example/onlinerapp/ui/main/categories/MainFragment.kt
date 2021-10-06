@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 @AndroidEntryPoint
 class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
 
+    private val categoryKeyTag = "key"
     private var binding: MainFragmentBinding by autoCleared()
     private val viewModel: MainViewModel by viewModels()
     private lateinit var adapter: CategoriesAdapter
@@ -61,7 +62,7 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
     override fun onClickedCategory(categoryKey: String) {
         findNavController().navigate(
                 R.id.action_mainFragment_to_productsFragment,
-                bundleOf("key" to categoryKey) // saving categoryKey
+                bundleOf(categoryKeyTag to categoryKey) // saving categoryKey
         )
     }
 }

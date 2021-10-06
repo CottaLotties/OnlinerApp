@@ -2,6 +2,7 @@ package com.example.onlinerapp.database
 
 import android.content.Context
 import androidx.room.Room
+import com.example.onlinerapp.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,7 @@ class DatabaseModule {
         return Room.databaseBuilder(
                 appContext,
                 AppDatabase::class.java,
-                "onlinerAppDB"
+                appContext.resources.getString(R.string.app_db_name)
         ).build()
     }
 }

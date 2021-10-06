@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var notificationManager: NotificationManager
 
+    private val fragmentTag = "FRAGMENT"
+    private val cartFragmentTag = "CART"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: MainActivityBinding = MainActivityBinding.inflate(layoutInflater)
@@ -26,12 +29,12 @@ class MainActivity : AppCompatActivity() {
 
         // check if the app was opened by a notification click (with a special action)
         val intent = intent
-        val action = intent.getStringExtra("FRAGMENT")
+        val action = intent.getStringExtra(fragmentTag)
         if (action != null) {
             if (action == "CART") {
                 supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.nav_host_fragment, CartFragment.newInstance(), "CART")
+                        .replace(R.id.nav_host_fragment, CartFragment.newInstance(), cartFragmentTag)
                         .addToBackStack(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.javaClass?.name)
                         .commit()
             }
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         val inflater = menuInflater
         val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         // Here we choose which menu do we need
-        if (!currentFragment?.tag.equals("CART")) {
+        if (!currentFragment?.tag.equals(cartFragmentTag)) {
             // if we are not in the CartFragment we show the cart icon
             inflater.inflate(R.menu.menu, menu)
         }
@@ -55,10 +58,10 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
         if (id == R.id.action_cart) {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            if (!currentFragment?.tag.equals("CART")) {
+            if (!currentFragment?.tag.equals(cartFragmentTag)) {
                 supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.nav_host_fragment, CartFragment.newInstance(), "CART")
+                        .replace(R.id.nav_host_fragment, CartFragment.newInstance(), cartFragmentTag)
                         .addToBackStack(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.javaClass?.name)
                         .commit()
             }

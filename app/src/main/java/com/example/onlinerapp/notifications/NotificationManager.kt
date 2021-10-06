@@ -12,6 +12,11 @@ import javax.inject.Inject
 class NotificationManager @Inject constructor(
         private val repository: Repository){
 
+    private val sharedPrefNotifKey = "NOTIFICATIONS"
+    private val notifOff = "OFF"
+    private val uniqueWorkName = "NOTIFY"
+    private val notifOn = "ON"
+
     private lateinit var mSharedPreferences: SharedPreferences
     private lateinit var mContext: Context
     private lateinit var mRequestBuilder: OneTimeWorkRequest
@@ -22,8 +27,8 @@ class NotificationManager @Inject constructor(
         mContext = context
         mSharedPreferences = sharedPreferences
         mLifecycleOwner = lifecycleOwner
-        val tag = sharedPreferences.getString("NOTIFICATIONS", "OFF")
-        if ((getCartSize()>0)&&(tag.equals("OFF"))) scheduleNotification()
+        val tag = sharedPreferences.getString(sharedPrefNotifKey, notifOff)
+        if ((getCartSize()>0)&&(tag.equals(notifOff))) scheduleNotification()
     }
 
     private fun getCartSize(): Int = runBlocking {
@@ -38,15 +43,15 @@ class NotificationManager @Inject constructor(
                 startNotifyWorker()
             }
         })
-        workManager.beginUniqueWork("NOTIFY", ExistingWorkPolicy.REPLACE, mRequestBuilder).enqueue()
+        workManager.beginUniqueWork(uniqueWorkName, ExistingWorkPolicy.REPLACE, mRequestBuilder).enqueue()
     }
 
     private fun startNotifyWorker() {
         // TODO: change repeatInterval; must be 4 hours
         val requestBuilder = PeriodicWorkRequest.Builder(Notifier::class.java, 30, TimeUnit.MINUTES)
-        WorkManager.getInstance(mContext).enqueueUniquePeriodicWork("NOTIFY", ExistingPeriodicWorkPolicy.REPLACE, requestBuilder.build())
+        WorkManager.getInstance(mContext).enqueueUniquePeriodicWork(uniqueWorkName, ExistingPeriodicWorkPolicy.REPLACE, requestBuilder.build())
         with (mSharedPreferences.edit()) {
-            putString("NOTIFICATIONS", "ON")
+            putString(sharedPrefNotifKey, notifOn)
             apply()
         }
     }

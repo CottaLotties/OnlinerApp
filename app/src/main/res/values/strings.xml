@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">OnlinerApp</string>
+
+    <!-- strings for layouts -->
     <string name="product_image_description">ProductImg</string>
     <string name="add_to_cart_button_text">Add</string>
     <string name="cart_menu_item">Cart</string>
     <string name="remove_all_menu_item">Remove all</string>
+
+    <string name="app_db_name">OnlinerAppDB</string>
+
+    <!-- strings for notifications -->
+    <string name="notification_action">Очистить корзину</string>
+    <string name="notification_title">Ваши товары грустят</string>
+    <string name="notification_message">Пожалуйста, купите их:)</string>
+
+    <!-- strings for product description -->
+    <string name="price_from_to">От %1$s %2$s</string>
+    <string name="product_offers_count">Предложений %1$s</string>
 </resources>

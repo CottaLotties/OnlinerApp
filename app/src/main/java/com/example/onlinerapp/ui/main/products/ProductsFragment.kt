@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
 
+    private val navTag = "key"
     private var binding: ProductsFragmentBinding by autoCleared()
     private val viewModel: ProductsViewModel by viewModels()
     private lateinit var adapter: ProductsAdapter
@@ -39,7 +40,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getString("key")?.let { viewModel.start(it) }
+        arguments?.getString(navTag)?.let { viewModel.start(it) }
         setupRecyclerView()
         setupObservers()
     }
@@ -66,7 +67,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductItemListener {
     override fun onClickedProduct(productKey: String) {
         findNavController().navigate(
             R.id.action_productsFragment_to_productDetailFragment,
-            bundleOf("key" to productKey)
+            bundleOf(navTag to productKey)
         )
     }
 

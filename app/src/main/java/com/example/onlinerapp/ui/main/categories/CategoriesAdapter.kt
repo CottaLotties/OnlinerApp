@@ -42,7 +42,6 @@ class CategoryViewHolder(private val itemBinding: CategoryItemBinding, private v
         itemBinding.root.setOnClickListener(this)
     }
 
-    //@SuppressLint("SetTextI18n")
     fun bind(item: Category) {
         this.category = item
         itemBinding.categoryName.text = item.name
