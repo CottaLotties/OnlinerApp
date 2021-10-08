@@ -7,18 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/categoriesSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/list_view_item_padding"
+        android:textCursorDrawable="@null"
+        app:iconifiedByDefault="false"
+        android:background="@drawable/product_item_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@null" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoriesList"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/recycle_view_margin"
-        android:layout_marginEnd="@dimen/recycle_view_margin"
+        android:layout_height="match_parent"
         android:layout_marginStart="@dimen/recycle_view_margin"
-        android:layout_marginTop="@dimen/recycle_view_margin"
-        tools:listitem="@layout/category_item"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="@dimen/recycle_view_margin"
+        android:layout_marginBottom="@dimen/recycle_view_margin"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/categoriesSearch"
+        tools:listitem="@layout/category_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import com.example.onlinerapp.databinding.MainFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +38,17 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
         // setup recycleView and observer
         setupRecyclerView()
         setupObservers()
+        binding.categoriesSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
+        })
     }
 
     private fun setupRecyclerView() {
@@ -50,7 +62,9 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
         viewModel.categories.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
-                    if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
+                    if (!it.data.isNullOrEmpty()) {
+                        adapter.setItems(ArrayList(it.data))
+                    }
                 }
                 Resource.Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
@@ -60,6 +74,7 @@ class MainFragment : Fragment(), CategoriesAdapter.CategoryItemListener {
     }
 
     override fun onClickedCategory(categoryKey: String) {
+        binding.categoriesSearch.setQuery("",false)
         findNavController().navigate(
                 R.id.action_mainFragment_to_productsFragment,
                 bundleOf(categoryKeyTag to categoryKey) // saving categoryKey
