@@ -41,4 +41,7 @@ interface CategoryDao {
 
     @Query("SELECT COUNT(id) FROM cart")
     suspend fun getCartSize(): Int
+
+    @Query("SELECT EXISTS (SELECT 1 FROM cart WHERE [key] = :key)")
+    suspend fun inCart(key: String): Boolean
 }

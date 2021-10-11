@@ -1,9 +1,11 @@
 package com.example.onlinerapp.ui.main.productdetail
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -12,6 +14,8 @@ import com.example.onlinerapp.autoCleared
 import com.example.onlinerapp.databinding.ProductDetailFragmentBinding
 import com.example.onlinerapp.entities.product.Product
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
@@ -37,6 +41,7 @@ class ProductDetailFragment : Fragment() {
         // Adding onClickListener for the addProductToCart button
             binding.addToCart.setOnClickListener {
             viewModel.addToCart(product)
+                checkButton()
         }
     }
 
@@ -60,5 +65,25 @@ class ProductDetailFragment : Fragment() {
         Glide.with(binding.root)
             .load("https:" + product.images.header)
             .into(binding.productImage)
+        checkButton()
+    }
+
+    private var inCart = false
+    // function to change the fab button if needed
+    private fun checkButton(){
+        ifInCart()
+            if(inCart) {
+                binding.addToCart.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                binding.addToCart.setImageResource(R.drawable.baseline_done_white_18)
+                binding.addToCart.isEnabled = false
+            }
+    }
+
+    // function to check if the product is in the cart
+    private fun ifInCart() = runBlocking {
+        launch {
+            inCart = viewModel.inCart(product.key)
+        }
     }
 }
