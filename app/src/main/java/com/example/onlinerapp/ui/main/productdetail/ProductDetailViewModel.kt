@@ -27,4 +27,8 @@ class ProductDetailViewModel @Inject constructor(
             repository.addProductToCart(product)
         }
     }
+
+    suspend fun inCart(key: String): Boolean {
+        return repository.inCart(key)
+    }
 }

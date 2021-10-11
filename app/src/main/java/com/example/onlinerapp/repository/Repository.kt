@@ -37,4 +37,6 @@ class Repository @Inject constructor(
     suspend fun removeAllFromCart() = categoryLocalDataSource.removeAllFromCart()
 
     suspend fun getCartSize(): Int = categoryLocalDataSource.getCartSize()
+
+    suspend fun inCart(key: String):Boolean = categoryLocalDataSource.inCart(key)
 }
