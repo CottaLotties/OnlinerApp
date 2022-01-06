@@ -11,12 +11,14 @@ import com.example.onlinerapp.entities.product.Product
 
 @Dao
 interface CategoryDao {
+    // queries for categories table
     @Query("SELECT * FROM categories")
     fun getAllCategories() : LiveData<List<Category>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCategories(categories: List<Category>)
 
+    // queries for products table
     // a select query to get all the products of the same category; html_url contains the category key
     @Query("SELECT * FROM products WHERE html_url LIKE :key")
     fun getProducts(key: String) : LiveData<List<Product>>
@@ -27,6 +29,7 @@ interface CategoryDao {
     @Query("SELECT * FROM products WHERE [key] = :key")
     fun getProduct(key: String): LiveData<Product>
 
+    // queries for cart table
     @Query("SELECT * FROM cart")
     fun getAllSelectedProducts() : LiveData<List<Product>>
 

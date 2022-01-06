@@ -1,8 +1,10 @@
-package com.example.onlinerapp.database
+package com.example.onlinerapp.di
 
 import android.content.Context
 import androidx.room.Room
 import com.example.onlinerapp.R
+import com.example.onlinerapp.database.AppDatabase
+import com.example.onlinerapp.database.CategoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
